@@ -2,10 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.dao.UserMapper;
 import com.example.demo.entity.User;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 @RestController
 @RequestMapping("")
@@ -13,9 +14,12 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    //http://localhost:8080/user?pageNum=2&pageSize=5
     @GetMapping("/user")
-    public List<User> findAll() {
-        return userMapper.findAll();
+    public Page<User> findAll( Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        Page<User> userList = userMapper.findAll();
+        return userList;
     }
 
     @GetMapping("/user/{userId}")

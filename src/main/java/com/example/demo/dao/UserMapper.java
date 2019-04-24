@@ -3,13 +3,13 @@ package com.example.demo.dao;
 import com.example.demo.entity.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+import com.github.pagehelper.Page;
 
-import java.util.List;
 
 @Repository
 public interface UserMapper {
     @Select("select * from user")
-    List<User> findAll();
+    Page<User> findAll();
 
     @Select("select * from user where id=#{id}")
     User findById(@Param("id") long bookId);
